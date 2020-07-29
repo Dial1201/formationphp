@@ -21,8 +21,8 @@
 					
  					echo'<div class="form-actions">';
 					echo'<button type="submit" class="btn btn-success"><i class="fas fa-pencil-alt"></i> Ajouter</button>';
-					echo'<input id="prodId" name="prodId" type="hidden" value="'.$getId['id'].'">';
- 					echo'<a href="article.php?id='.$getId['id'] .'" class="btn btn-primary"><i class="fas fa-arrow-left"></i>Retour</a>';
+					echo'<input id="prodId" name="prodId" type="hidden" value="'.$article_id['id'].'">';
+ 					echo'<a href="article.php?id='.$article_id['id'] .'" class="btn btn-primary"><i class="fas fa-arrow-left"></i>Retour</a>';
 					echo"</div>";
 					?>
 				</form>

@@ -11,19 +11,19 @@ $isSuccess = null;
   *  On doit d'abord récupérer le paramètre "id" qui sera présent en GET et vérifier son existence avec isset
   *  Si on n'a pas de param "id", on affiche un message erreur
   *  SINON, on va se connecter à la base de données,
-  *  On met le résultat dans $getId
+  *  On met le résultat dans $article_id
   */
 
- $getId = null;
+$article_id = null;
 
   // On vérifie Si l'article existe avec la variable $_GET['id'] exsite avec isset
   // SI elle n'est pas vide avec !empty et que c'est un nombre entier avec ctype_digit
   // Si tout est ok ont met ca dans la variable $comment_id
   if(isset($_GET['id']) && !empty($_GET['id']) && ctype_digit($_GET['id'])) {
-   $getId = $_GET['id'] ;
+  $article_id = $_GET['id'] ;
   }
   //Si il manque le paramètre "id" on le précise
-  if(!$getId) {
+  if(!$article_id) {
     die("Ont doit préciser un paramètre dans l'URL");
 }
 
@@ -31,16 +31,16 @@ $isSuccess = null;
 $db = Database::connect();
 
 //  On récupère un partenaire
-  $query = $db-> prepare("SELECT id FROM partenaire WHERE id = :getId");
-  $query->execute(['getId' => $getId]);
-  // On met le résultat dans $getId
-  $getId = $query->fetch();
+  $query = $db-> prepare("SELECT id FROM partenaire WHERE id = :article_id");
+  $query->execute(['article_id' =>$article_id]);
+  // On met le résultat dans$article_id
+ $article_id = $query->fetch();
 
 /**
  * 1. On vérifie que les données ont bien été envoyées en POST
  */
 
-$username = $commentaire = $article_id = null;
+$username = $commentaire = null;
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -73,7 +73,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
   ));
 
   // 4. Redirection
-  header('Location: article.php?id=' . $article_id);
+  header('Location: article.php?id='. $article_id);
   
  
 }
