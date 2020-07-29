@@ -1,14 +1,8 @@
 <?php
 require_once('../Database.php');
 
-// l'utilisateur vient d'arriver sur la page 
-// $usernameCo = $passwordCo = "";
 $errorPassOrId = "'Mauvais identifiant ou mot de passe !'";
 $verify = false;
-
-// Vérifie si le pseudo et le mdp existe
-// if ($_SERVER["REQUEST_METHOD"] == "POST") {
-//     $verify = false;
 
     if (isset($_POST['usernameCo'],$_POST['passwordCo']) AND !empty('usernameCo') AND !empty('paswsordCo')) {
         $usernameCo = verifyinput($_POST["usernameCo"]);  //fonction pour la securite (trim, stripcslashes, htmlspecialchars)
@@ -53,20 +47,3 @@ function verifyinput ($var) { // fonction pour la securite
     return $var;
 }
 ?>
-
-<!-- <form action="<?php // echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
-    <div class="form-group">
-        <label class="col col-lg-5" for="username" >Username</label>
-        <input class="col col-lg-6" type="text" name="usernameCo" id="username"  required>
-        <p class="errorCo"><?php // echo $errorPassOrId; ?></p>                     
-    </div>
-                    
-    <div class="form-group">
-        <label class="col col-lg-5" for="password" >Mot de passe</label>
-        <input class="col col-lg-6" type="password" name="passwordCo" id="password" required>
-        <p class="errorCo"><?php // echo $errorPassOrId; ?></p>                  
-    </div>
-
-        <p><input type="submit" class="btn btn-primary" value="Valider"></p>
-        <a href="forget.php" ><p>Mot de passe oublié</p></a>
-</form> -->

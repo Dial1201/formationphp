@@ -35,17 +35,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $rep->execute(array('password' => $hashedPassword,'username' => $username));
 
         if ($isVerifed) {
+           echo'<div class="alert alert-success">'; 
            echo"Voici votre nouveau mot de passe :<strong> $newPassword</strong> ";
-
+           echo"</div>"; 
            ?>
-           <span><a href="../index.php">Connectez vous ici</a></span>
+           <div class="alert alert-success">
+                <span><a href="../index.php">Connectez vous ici</a></span>
+           </div>
+           
            <?php
         }
 
         
     }
     else {
+        echo'<div class="alert alert-danger">'; 
         echo" La question ou la réponse n'existe pas dans le site";
+        echo"</div>";
     }
 }
 
