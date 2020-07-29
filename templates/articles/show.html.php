@@ -33,8 +33,8 @@
         foreach ($commentaires as $commentaire) {
         echo'<div class="col-md-6">';
             echo '<a href="save-comment.php?id=' .$commentaire['id'] .'"><button type="button" class="btn btn-outline-dark button2">Nouveau commentaire</button></a>';
-            echo'<a href="action.php?type=likes&id=' .$commentaire['id'] .'"><button type="button" class="btn btn-outline-dark button2">'.$likes.'<i class="fas fa-thumbs-up"></i></button></a>';
-            echo'<a href="action.php?type=dislikes&id=' .$commentaire['id'] .'"><button type="button" class="btn btn-outline-dark button2">'.$dislikes.'<i class="fas fa-thumbs-down"></i></button></a>';
+            echo'<a href="action.php?type=likes&id=' .$commentaire['id'] .'"><button type="button" class="btn btn-outline-dark button2">'.$likes." ".'<i class="fas fa-thumbs-up"></i></button></a>';
+            echo'<a href="action.php?type=dislikes&id=' .$commentaire['id'] .'"><button type="button" class="btn btn-outline-dark button2">'.$dislikes." ".'<i class="fas fa-thumbs-down"></i></button></a>';
         echo'</div>';
     echo'</div>';
 

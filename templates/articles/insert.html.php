@@ -14,12 +14,12 @@
                 	</div>
  					<div class="form-group">
  					<input type="text" name="commentaire" id="commentaire" class="form-control input-lg"  placeholder="Vous voulez réagir ? N'hésitez pas !" >
- 					<span class="help-inline"><?= $commentaireError; ?></span>
+ 					
  					</div>
  				
  					<div class="form-actions">
- 					<button type="submit" class="btn btn-success"><i class="fas fa-pencil-alt"></i> Ajouter</button>
- 					<a class="btn btn-primary" href="article.php?id"<?= $comment_id  ?>><i class="fas fa-arrow-left"></i> Retour</a>
+ 					<button type="submit" value="<?php $comment_id ?> " class="btn btn-success"><i class="fas fa-pencil-alt"></i> Ajouter</button>
+ 					<a class="btn btn-primary" href="article.php?id=<?php $getId ?>"><i class="fas fa-arrow-left"></i><?php $getId ?>trart Retour</a>
  					</div>
 				</form>
             </div>

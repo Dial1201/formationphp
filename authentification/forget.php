@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $isVerifed = false;
 
     if (isset($_POST['username'],$_POST['question'],$_POST['reponse']) AND !empty('username') AND !empty('question') AND !empty('reponse')) {
-        $username = verifyinput($_POST["username"]);  // fonction pour la securite
+        $username = verifyinput($_POST["username"]);  //fonction pour la securite (trim, stripcslashes, htmlspecialchars)
         $question = verifyinput($_POST["question"]); // fonction pour la securite
         $reponse = verifyinput($_POST["reponse"]); // fonction pour la securite
         $isVerifed = true;

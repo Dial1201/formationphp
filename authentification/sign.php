@@ -19,7 +19,7 @@ $isSuccess = false;
 	if (isset($_POST["nom"],$_POST["prenom"],$_POST["username"],$_POST["password"],$_POST["question"],$_POST["reponse"]))
 	{
 		
-		$nom = verifyinput($_POST["nom"]);
+		$nom = verifyinput($_POST["nom"]); //fonction pour la securite (trim, stripcslashes, htmlspecialchars)
 		$prenom = verifyinput($_POST["prenom"]);
 		$username = verifyinput($_POST["username"]);
 		$password = verifyinput($_POST["password"]);

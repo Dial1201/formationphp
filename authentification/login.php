@@ -11,7 +11,7 @@ $verify = false;
 //     $verify = false;
 
     if (isset($_POST['usernameCo'],$_POST['passwordCo']) AND !empty('usernameCo') AND !empty('paswsordCo')) {
-        $usernameCo = verifyinput($_POST["usernameCo"]);  // fonction pour la securite
+        $usernameCo = verifyinput($_POST["usernameCo"]);  //fonction pour la securite (trim, stripcslashes, htmlspecialchars)
         $passwordCo = verifyinput($_POST["passwordCo"]); // fonction pour la securite
         $verify = true;
     }
