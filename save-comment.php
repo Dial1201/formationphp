@@ -8,7 +8,10 @@ $isSuccess = null;
  * 
 */
 /**
-  *  Récupération du partenaire avec "id" et vérification
+  *  On doit d'abord récupérer le paramètre "id" qui sera présent en GET et vérifier son existence avec isset
+  *  Si on n'a pas de param "id", on affiche un message erreur
+  *  SINON, on va se connecter à la base de données,
+  *  On met le résultat dans $getId
   */
 
  $getId = null;
@@ -24,43 +27,65 @@ $isSuccess = null;
     die("Ont doit préciser un paramètre dans l'URL");
 }
 
-/**
- * On se connecte à la base de données
- */
+// On se connecte à la base de données
 $db = Database::connect();
 
-/**
-   * 3 On récupère un partenaire
-   */
-  $query = $db-> prepare("SELECT * FROM partenaire WHERE id = :getId");
-
-  // On précise le paramètre de un partenaire
+//  On récupère un partenaire
+  $query = $db-> prepare("SELECT id FROM partenaire WHERE id = :getId");
   $query->execute(['getId' => $getId]);
-
   // On met le résultat dans $getId
   $getId = $query->fetch();
 
+/**
+ * 1. On vérifie que les données ont bien été envoyées en POST
+ */
 
+$username = $commentaire = $article_id = null;
 
-  
-  function verifyinput ($var) { // fonction pour la securite
+if($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $var = trim($var); // trim — Supprime les espaces (ou d'autres caractères) en début et fin de chaîne
-    $var = stripcslashes($var); // supprime tous les antislashs
-    $var = htmlspecialchars($var); // Convertit les caractères spéciaux en entités HTML
-    return $var;
+  //fonction pour la securite (trim, stripcslashes, htmlspecialchars)
+  $username = verifyinput($_POST['nom']);
+  $commentaire = verifyinput($_POST["commentaire"]);
+  // Vérifie que la chaine $_POST est un entier
+  $article_id = ctype_digit($_POST['id']);
+
+  /**
+   * 2. Vérification que l'id de l'article pointe bien vers un article qui existe
+   */
+  $db = Database::connect();
+
+  if ($query->rowCount() === 1) {
+    $query = $db->prepare('SELECT * FROM partenaire WHERE id = :article_id');
+    $query->execute(['article_id' => $article_id]);
+  }
+  else {
+    // Sinon on crée une erreur
+    die("Ho ! L'article $article_id n'existe pas !");
+  }
+
+  // 3. Insertion du commentaire
+  $query = $db->prepare('INSERT INTO comments SET user_id = :username, texte = :commentaire, date_creation = NOW(), partenaire = :article_id');
+  $query->execute(array(
+    'username' => $username,
+    'commentaire' => $commentaire,
+    'article_id' => $article_id
+  ));
+
+  // 4. Redirection
+  // header('Location: article.php?id=' . $article_id);
+  // exit();
+ 
 }
 
+/**
+ * 5. On affiche
+ * */
+ob_start();
+require('templates/articles/insert.html.php');
+$pageContent = ob_get_clean();
 
-    
-    /**
-     * 4 On affiche
-     */
-    ob_start();
-    require('templates/articles/insert.html.php');
-    $pageContent = ob_get_clean();
+require('templates/layout.html.php');
 
-    require('templates/layout.html.php');
- ?>
 
 
