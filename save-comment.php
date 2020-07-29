@@ -48,7 +48,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
   $username = verifyinput($_POST['nom']);
   $commentaire = verifyinput($_POST["commentaire"]);
   // Vérifie que la chaine $_POST est un entier
-  $article_id = ctype_digit($_POST['id']);
+  $article_id = ctype_digit($_POST['prodId']);
 
   /**
    * 2. Vérification que l'id de l'article pointe bien vers un article qui existe
@@ -73,8 +73,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
   ));
 
   // 4. Redirection
-  // header('Location: article.php?id=' . $article_id);
-  // exit();
+  header('Location: article.php?id=' . $article_id);
+  
  
 }
 
