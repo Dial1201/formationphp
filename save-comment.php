@@ -14,16 +14,17 @@ $isSuccess = null;
   *  On met le résultat dans $article_id
   */
 
-$article_id = null;
+  $article_id = null;
 
   // On vérifie Si l'article existe avec la variable $_GET['id'] exsite avec isset
   // SI elle n'est pas vide avec !empty et que c'est un nombre entier avec ctype_digit
   // Si tout est ok ont met ca dans la variable $comment_id
   if(isset($_GET['id']) && !empty($_GET['id']) && ctype_digit($_GET['id'])) {
-  $article_id = $_GET['id'] ;
+  $article_id = (int) $_GET['id'] ;
   }
   //Si il manque le paramètre "id" on le précise
   if(!$article_id) {
+    var_dump($article_id);
     die("Ont doit préciser un paramètre dans l'URL");
 }
 
