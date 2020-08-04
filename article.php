@@ -65,6 +65,7 @@ require_once('Database.php');
     /**
      * 6 On affiche
      */
+    $pageTitle = "Article";
     ob_start();
     require('templates/articles/show.html.php');
     $pageContent = ob_get_clean();

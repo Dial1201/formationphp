@@ -42,8 +42,15 @@ $isSuccess = false;
 			$req->execute(array($nom,$prenom,$username,$pass_hache,$question,$reponse));
 				
 			echo" <div class=\"messageHome\">$messageHome</div>";
-		}
 
+			// on récupère id et le username pour notre session_start
+			$rep = $db->prepare('SELECT id,username, FROM users  WHERE username = :username ');
+			$req->execute(array('username' => $username));
+			$resultat = $req->fetch();
+		}
+		session_start();
+        $_SESSION['id'] = $resultat['id'];
+        $_SESSION['username'] = $resultat['username'];
 		header('location: ../accueil.php');
 	}
 		 else //if (empty($nom) OR empty($prenom) OR empty($username) OR empty($password) OR empty($question) OR empty($reponse))

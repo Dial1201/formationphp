@@ -12,67 +12,65 @@ session_start();
    * 2 on vérifie SI get=type and get=id existe et si les variable sont pas vide
    */
 
-if (isset($_GET['type'],$_GET['id']) && !empty($_GET['type']) && !empty($_GET['id'])) {
+if (isset($_GET['type'],$_GET['id'],$_SESSION['id']) && !empty($_GET['type']) && !empty($_GET['id'])) {
     $get_id = (int) $_GET['id']; // ON le converti en int pour la securité 
-    $get_type = (string) verifyinput($_GET['type']); // fonction securite
-    $sessionUserName = $_SESSION['username'];
+    $get_type = (int) $_GET['type']; 
+    $sessionid = $_SESSION['id'];
 
     // on vérifie SI l'article existe
     $check = $db->prepare('SELECT id FROM partenaire WHERE id = ?');
     $check->execute(array($get_id));
 
-    // Si l'article existe il doit retourner une valeur (1) 
+    //on vérifie que le $_session['id'], existe et qu'elle est activée
+    if (session_status() == PHP_SESSION_NONE || PHP_SESSION_DISABLED) { 
+        // si la session est activées, mais qu'elle n'existe pas ou la session est désactivée.
+        echo" La session id n'est pas présent !";
+    }
+
+    // Si l'article existe il doit retourner une valeur  
     if($check->rowCount() == 1) { 
-
-        // SI la valeur correspond à likes 
-        if ($get_type == 'likes') {
-            $check_user = $db->prepare('SELECT id FROM likes WHERE id_article = ? AND id_user = ?');
-            $check_user->execute(array($get_id,$sessionUserName));
-
-            // SI il existe un aricle qui à déjà un like de id_user(l'utilisateur fait un 2e like)
-            if ($check_user->rowCount() == 1) {
-                // on ne prend pas en compte et on efface un like en plus
-                $check_del = $db->prepare('DELETE FROM likes WHERE id_article = ? AND id_user = ?');
-                $check_del->execute(array($get_id,$sessionUserName));
-            } 
+        // SI la valeur correspond à 1 
+        if ($get_type == 1) {
+            // on vérifie si l'utilisateurà un like 
+            $check_like = $db->prepare('SELECT id FROM likes WHERE id_article = ? && id_user = ?');
+            $check_like->execute(array($get_id,$sessionid));
+            
+            $del = $db->prepare('DELETE FROM dislikes WHERE id_article = ? && id_user = ?');
+            $del->execute(array($get_id,$sessionid));
+            // SI un like existe déjà on efface
+            if($check_like->rowCount() == 1) {
+                $del = $db->prepare('DELETE FROM likes WHERE id_article = ? && id_user = ?');
+                $del->execute(array($get_id,$sessionid));
+            }
+            // SINON on ajoute le like
             else {
-                // on insert le like avec le $sessionUserName
                 $ins = $db->prepare('INSERT INTO likes (id_article, id_user) VALUE (?,?)');
-                $ins->execute(array($get_id, $sessionUserName));
+                $ins->execute(array($get_id,$sessionid));
             }
-            
 
-        }
-        // SI la valeur correspond à dislikes
-        elseif ($get_type == 'dislikes') {
-            $check_user = $db->prepare('SELECT id FROM dislikes WHERE id_article = ? AND id_user = ?');
-            $check_user->execute(array($get_id,$sessionUserName));
+        } 
+        // SINON SI la valeur correspond à 2
+        elseif ($get_type == 2) {
+            // on vérifie si l'utilisateurà un like 
+            $check_like = $db->prepare('SELECT id FROM dislikes WHERE id_article = ? && id_user = ?');
+            $check_like->execute(array($get_id,$sessionid));
 
-
-            if ($check_user->rowCount() == 1) {
-                $check_del = $db->prepare('DELETE FROM dislikes WHERE id_article = ? AND id_user = ?');
-                $check_del->execute(array($get_id,$sessionUserName));
-            } 
+            $del = $db->prepare('DELETE FROM likes WHERE id_article = ? && id_user = ?');
+            $del->execute(array($get_id,$sessionid));
+            // SI un like existe déjà on efface
+            if($check_like->rowCount() == 1) {
+                $del = $db->prepare('DELETE FROM dislikes WHERE id_article = ? && id_user = ?');
+                $del->execute(array($get_id,$sessionid));
+            }
+            // SINON on ajoute le like
             else {
-                
                 $ins = $db->prepare('INSERT INTO dislikes (id_article, id_user) VALUE (?,?)');
-                $ins->execute(array($get_id, $sessionUserName));
+                $ins->execute(array($get_id,$sessionid));
             }
-            
+        
         }
-        header('location: article.php?id=' . $get_id);
+    header('Location: article.php?id='.$get_id);  
+        
     }
-    else {
-        exit('Erreur fatale1');
-    }
-}
-else {
-    exit('Erreur fatale2');
-}
-function verifyinput ($var) { // fonction pour la securite
-
-    $var = trim($var); // trim — Supprime les espaces (ou d'autres caractères) en début et fin de chaîne
-    $var = stripcslashes($var); // supprime tous les antislashs
-    $var = htmlspecialchars($var); // Convertit les caractères spéciaux en entités HTML
-    return $var;
+    
 }
