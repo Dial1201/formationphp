@@ -34,6 +34,8 @@ $commentaire = null;
 
 $isSuccess = null;
 
+
+
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 
   //fonction pour la securite (trim, stripcslashes, htmlspecialchars)
@@ -76,65 +78,14 @@ function verifyinput ($var) { // fonction pour la securite
   $var = htmlspecialchars($var); // Convertit les caractères spéciaux en entités HTML
   return $var;
 }
-?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+/**
+     * 5 On affiche
+     */
+    $pageTitle = "commentaire";
+    ob_start();
+    require('templates/articles/insert.html.php');
+    $pageContent = ob_get_clean();
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-    <!-- Font stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/test.css">
+    require('templates/layout.html.php');
 
-    <title>GBAF <?= $pageTitle ?></title>
-</head>
-<body>
-    <div class="container site">
-
-    <!-- HEADER -->
-
-<?php include_once"libraries/header.php"; ?>
- 
- <div class="container-fluid">
-     <div class="container">
-         <h2 class="text-center" id="title">Ajouter un commentaire</h2><img src="image/logo.png" alt="Groupement Banque Assurance Français" weight="60" height="60">
-     <br>
-     <div class="row">
-             <div class="col-md-6">
-          <form role="form" action="<?php $_SERVER['PHP_SELF'] ?>" method="POST" >
-           <div class="form-group">
-             <input type="text" name="nom" id="nom" class="form-control input-lg" value="<?php echo"$_SESSION[username]";?>" readonly required>
-                   </div>
-            <div class="form-group">
-            <input type="text" name="commentaire" id="commentaire" class="form-control input-lg" placeholder="Vous voulez réagir ? N'hésitez pas !"  >
-            </div>
- 
-            <div class="form-actions">
-           <button type="submit" value="<?= $article_id ?>" class="btn btn-success"><i class="fas fa-pencil-alt"></i> Ajouter</button>
-           <input id='prodId' name='prodId' type='hidden' value="<?= $article_id ?>">
-            <a href="article.php?id=<?= $article_id ?>" class="btn btn-primary"><i class="fas fa-arrow-left"></i>Retour</a>
-           </div>
-           
-         </form>
-             </div>
-     </div>
-   </div>
- </div>
- 
- <!-- FOOTER -->
- 
- <?php include_once"libraries/footer.php";?>
-
-
-
-    </div>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>   
-</body>
-</html>
