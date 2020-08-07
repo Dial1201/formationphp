@@ -4,14 +4,15 @@ require_once('../Database.php');
 $errorPassOrId = "'Mauvais identifiant ou mot de passe !'";
 $verify = false;
 
-    if (isset($_POST['usernameCo'],$_POST['passwordCo']) AND !empty('usernameCo') AND !empty('paswsordCo')) {
+    if (isset($_POST['login'])) {
         $usernameCo = verifyinput($_POST["usernameCo"]);  //fonction pour la securite (trim, stripcslashes, htmlspecialchars)
         $passwordCo = verifyinput($_POST["passwordCo"]); // fonction pour la securite
         $verify = true;
     }
     else { // Sinon si le password ou username et faux ont indique à l'utilisateur
-        echo"$errorPassOrId" ;     
+        print_r($db->errorInfo());  
     }
+
     // On se connecte à la base de données
     $db = Database::connect();
 

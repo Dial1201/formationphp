@@ -15,10 +15,12 @@
  					<div class="form-group">
  					<input type="text" name="commentaire" id="commentaire" class="form-control input-lg" placeholder="Vous voulez réagir ? N'hésitez pas !"  >
  					</div>
-
+					 <div class="form-group">
+ 					<input type="text" name="partenaire" id="partenaire" value="<?= $_GET['id'] ?>">
+ 					</div>
  					<div class="form-actions">
-					<button type="submit" value="<?= $article_id ?>" class="btn btn-success"><i class="fas fa-pencil-alt"></i> Ajouter</button>
-					<input id='prodId' name='prodId' type='hidden' value="<?= $article_id ?>">
+					<button type="submit" class="btn btn-success"><i class="fas fa-pencil-alt"></i> Ajouter</button>
+					<!-- <input id='prodId' name='prodId' type='hidden' value="<?= $article_id ?>"> -->
  					<a href="article.php?id=<?= $article_id ?>" class="btn btn-primary"><i class="fas fa-arrow-left"></i>Retour</a>
 					</div>
 					

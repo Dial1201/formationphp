@@ -41,16 +41,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
   //fonction pour la securite (trim, stripcslashes, htmlspecialchars)
   $username = verifyinput($_POST['nom']);
   $commentaire = verifyinput($_POST["commentaire"]);
-  // Vérifie que la chaine $_POST est un entier
-  $article_id = ctype_digit($_POST['prodId']);
+  
 
   /**
    * 2. Vérification que l'id de l'article pointe bien vers un article qui existe
    */
   $db = Database::connect();
 
-  $query = $db->prepare('SELECT * FROM partenaire WHERE id = :article_id');
-  $query->execute(['article_id' => $article_id]);
+  $query = $db->prepare('SELECT * FROM partenaire WHERE id = ?');
+  $query->execute([$article_id]);
 
   
 // Si rien n'est revenu, on fait une erreur
@@ -65,7 +64,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     'commentaire' => $commentaire,
     'article_id' => $article_id
   ));
-
+  var_dump($article_id); echo"<br>";
+  var_dump($query);
   // 4. Redirection
   header('Location: article.php?id='. $article_id);
   

@@ -2,6 +2,7 @@
 
 // Connexion à la base de données
 require_once("../Database.php");
+require_once("../functions.php");
 
 $messageHome = "Vous allez être rediriger vers la page d'accueil dans un instant ...";
 $isSuccess = false;
@@ -36,31 +37,17 @@ $isSuccess = false;
 			echo'<div class="alert alert-success">'; 
            	echo"<strong> $messageHome</strong> ";
            	echo"</div>";	
-			var_dump($username);
-			
 
-			$db = Database::connect();
-			// on récupère id et le username pour notre session_start
-			$rep = $db->prepare('SELECT * FROM users WHERE username = ?');
-			$req->execute(array($username));
-			$resultat = $req->fetch();
+		?>
+		<script>
+			document.location.href="../index.php";
+		</script>
+		<?php
 			
 		}
-		
-
-		session_start();
-        $_SESSION['id'] = $resultat['id'];
-        $_SESSION['username'] = $resultat['username'];
-		header('location: ../accueil.php');
-	}
 	
-	function verifyinput ($var) { // fonction pour la securite
-		
-		$var = trim($var); // trim — Supprime les espaces (ou d'autres caractères) en début et fin de chaîne
-		$var = stripcslashes($var); // supprime tous les antislashs
-		$var = htmlspecialchars($var); // Convertit les caractères spéciaux en entités HTML
-		return $var;
+	
 	}
 
-?>
 
+	

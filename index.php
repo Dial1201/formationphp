@@ -77,7 +77,7 @@
 								<input type="password" name="passwordCo" id="passwordCo" class="form-control input-lg" placeholder="Mot de Passe">
 							</div>
                             <div>
- 								<input type="submit" class="btn btn-lg btn-primary"   value="Se Connecter">
+ 								<input type="submit" name="login" class="btn btn-lg btn-primary"   value="Se Connecter">
  							</div>
 								 
                          </fieldset>
