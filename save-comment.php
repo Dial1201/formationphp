@@ -64,8 +64,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     'commentaire' => $commentaire,
     'article_id' => $article_id
   ));
-  var_dump($article_id); echo"<br>";
-  var_dump($query);
+ 
   // 4. Redirection
   header('Location: article.php?id='. $article_id);
   
