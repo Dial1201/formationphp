@@ -36,12 +36,11 @@ $isSuccess = false;
 
 			echo'<div class="alert alert-success">'; 
            	echo"<strong> $messageHome</strong> ";
-           	echo"</div>";	
+			echo"</div>";
+			header('location:../index.php');   	
 
 		?>
-		<script>
-			document.location.href="../index.php";
-		</script>
+
 		<?php
 			
 		}

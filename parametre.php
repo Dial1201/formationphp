@@ -58,28 +58,39 @@
                 'reponse'=>$reponse,
                 'id'=>$id
             ));
+           
+            if($check_password == true && $newpassword == $comfirmNew_password){
+                // Hachage du nouveau mot de passe
+                $pass_hache = password_hash($newpassword, PASSWORD_DEFAULT);
+                
+                $statement = $db->prepare("UPDATE users SET nom = :nom, prenom = :prenom, username = :username, password = :password, question = :question, reponse = :reponse WHERE id = :id");
+                $statement->execute(array(
+                    'nom'=>$nom,
+                    'prenom'=>$prenom,
+                    'username'=>$username,
+                    'password'=>$pass_hache,
+                    'question'=>$question,
+                    'reponse'=>$reponse,
+                    'id'=>$id
+            ));
+               
+            }
             
-            Database::disconnect();
+            $statement = $db->prepare('SELECT id, username FROM users WHERE id = ?');
+            $statement->execute(array($id));
+            $newpassword = $statement->fetch();
+
+            session_start();
+            $_SESSION['id'] = $newpassword['id'];
+            $_SESSION['username'] = $newpassword['username'];
+            header("Location: accueil.php");     
+        }
+         
+            
+            
         }
         // SI MDP coorespond à la BDD et nouveau est égal au second de comfirmation on insert avec le newpassword
-        elseif($check_password == true && $newpassword === $comfirmNew_password){
-            // Hachage du nouveau mot de passe
-            $pass_hache = password_hash($newpassword, PASSWORD_DEFAULT);
-            $db = Database::connect();
-            $statement = $db->prepare("UPDATE users set nom = ?, prenom = ?, username = ?, password = ?, question = ?, reponse = ?, WHERE id = ?");
-            $statement->execute(array($nom,$prenom,$username,$pass_hache,$question,$reponse,$id));
-            
-            Database::disconnect();
-        }
-        Database::connect();
-        $statement = $db->prepare('SELECT id, username FROM users WHERE id = ?');
-        $statement->execute(array($id));
-        $newpassword = $statement->fetch();
-        session_start();
-        $_SESSION['id'] = $newpassword['id'];
-        $_SESSION['username'] = $newpassword['username'];
-        header("Location: accueil.php");     
-    }
+
     /**
      *  On affiche
      */

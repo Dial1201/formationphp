@@ -1,5 +1,6 @@
 <?php
 require_once('Database.php');
+require_once("../functions.php");
 
 /**
  * CE FICHIER DOIT ENREGISTRER UN NOUVEAU COMMENTAIRE EST REDIRIGER SUR L'ARTICLE !
@@ -69,13 +70,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
   header('Location: article.php?id='. $article_id);
   
  
-}
-function verifyinput ($var) { // fonction pour la securite
-		
-  $var = trim($var); // trim — Supprime les espaces (ou d'autres caractères) en début et fin de chaîne
-  $var = stripcslashes($var); // supprime tous les antislashs
-  $var = htmlspecialchars($var); // Convertit les caractères spéciaux en entités HTML
-  return $var;
 }
 
 /**

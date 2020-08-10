@@ -1,5 +1,6 @@
 <?php
 require_once('../Database.php');
+require_once("../functions.php");
 
 // l'utilisateur vient d'arriver sur la page 
 $username = $question = $reponse = "";
@@ -55,13 +56,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-function verifyinput ($var) { // fonction pour la securite
-
-    $var = trim($var); // trim — Supprime les espaces (ou d'autres caractères) en début et fin de chaîne
-    $var = stripcslashes($var); // supprime tous les antislashs
-    $var = htmlspecialchars($var); // Convertit les caractères spéciaux en entités HTML
-    return $var;
-}
 ?>
 
     <!DOCTYPE html>

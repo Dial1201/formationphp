@@ -20,7 +20,6 @@
  					</div>
  					<div class="form-actions">
 					<button type="submit" class="btn btn-success"><i class="fas fa-pencil-alt"></i> Ajouter</button>
-					<!-- <input id='prodId' name='prodId' type='hidden' value="<?= $article_id ?>"> -->
  					<a href="article.php?id=<?= $article_id ?>" class="btn btn-primary"><i class="fas fa-arrow-left"></i>Retour</a>
 					</div>
 					
