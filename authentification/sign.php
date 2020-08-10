@@ -37,7 +37,8 @@ $isSuccess = false;
 			echo'<div class="alert alert-success">'; 
            	echo"<strong> $messageHome</strong> ";
 			echo"</div>";
-			header('location:../index.php');   	
+			// header('location:../index.php');
+			redirection("../index.php");   	
 
 		?>
 

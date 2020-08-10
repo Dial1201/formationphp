@@ -6,3 +6,82 @@ function verifyinput ($var) { // fonction pour la securite
         $var = htmlspecialchars($var); // Convertit les caractères spéciaux en entités HTML
         return $var;
     }
+
+function redirection (string $url): void{
+    header("Location: $url");
+    exit(); 
+}
+
+/**
+ * Retourne la liste des articles classées par date de création
+ * @return array
+ */
+function findAllArticles():array {
+	$db = DataBase::connect();
+	$resultats = $db->query('SELECT * FROM partenaire ORDER BY join_date DESC');
+	$articles = $resultats->fetchAll();
+
+	return $articles;
+}
+
+/**
+ * Retourne un article par rapport à son id
+ */
+function findArticle(int $id) {
+	$db = DataBase::connect();
+	$query = $db-> prepare("SELECT * FROM partenaire WHERE id = :article_id");
+    $query->execute(['article_id' => $id]);
+    $article = $query->fetch();
+
+   return $article;
+}
+
+/**
+ * Retourne la listes des commentaires d'un article
+ */
+function findAllComments(int $article_id):array {
+	$db = DataBase::connect();
+	$query = $db->prepare("SELECT * FROM comments WHERE partenaire = :article_id");
+    $query->execute(['article_id' => $article_id]);
+	$commentaires = $query->fetchAll();
+
+	return $commentaires;
+}
+
+/**
+ * Retourne le nombre de likes
+ */
+function resultVotesLikes(int $article_id) {
+	$db = DataBase::connect();
+	$likes = $db->prepare('SELECT id FROM likes WHERE id_article = ?');
+    $likes->execute(array($article_id));
+	$likes = $likes->rowCount();
+	
+	return $likes;
+}
+
+/**
+ * Retourne le nombre de dislikes
+ */
+function resultVotesDisLikes(int $article_id) {
+	$db = DataBase::connect();
+	$dislikes = $db->prepare('SELECT id FROM dislikes WHERE id_article = ?');
+    $dislikes->execute(array($article_id));
+	$dislikes = $dislikes->rowCount();
+	
+	return $dislikes;
+}
+
+/**
+ * Insertion d'un commentaire d'un article
+ */
+function insertComment(string $username, string $commentaire, string $article_id):void  {
+	$db = DataBase::connect();
+	$query = $db->prepare('INSERT INTO comments SET id_user = :username, texte = :commentaire, date_creation = NOW(), partenaire = :article_id');
+  	$query->execute(array(
+    'username' => $username,
+    'commentaire' => $commentaire,
+    'article_id' => $article_id
+  ));
+
+}

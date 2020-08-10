@@ -32,7 +32,8 @@ $verify = false;
         $verify = true;
         $_SESSION['id'] = $resultat['id'];
         $_SESSION['username'] = $resultat['username'];
-        header('location:../accueil.php');
+        // header('location:../accueil.php');
+        redirection("../accueil.php");
   
     }
 

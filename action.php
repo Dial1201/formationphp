@@ -1,5 +1,6 @@
 <?php
 require_once('Database.php');
+require_once("functions.php");
 session_start();
 
    /**
@@ -69,8 +70,8 @@ if (isset($_GET['type'],$_GET['id'],$_SESSION['id']) && !empty($_GET['type']) &&
             }
         
         }
-    header('Location: article.php?id='.$get_id);  
-        
+    // header('Location: article.php?id='.$get_id);  
+        redirection("article.php?id=$get_id");
     }
     
 }

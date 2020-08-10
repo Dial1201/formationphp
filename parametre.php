@@ -83,7 +83,8 @@
             session_start();
             $_SESSION['id'] = $newpassword['id'];
             $_SESSION['username'] = $newpassword['username'];
-            header("Location: accueil.php");     
+            // header("Location: accueil.php");
+            redirection("accueil.php");     
         }
          
             
