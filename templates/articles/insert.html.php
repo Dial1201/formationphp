@@ -16,7 +16,7 @@
  					<input type="text" name="commentaire" id="commentaire" class="form-control input-lg" placeholder="Vous voulez réagir ? N'hésitez pas !"  >
  					</div>
 					 <div class="form-group">
- 					<input type="text" name="partenaire" id="partenaire" value="<?= $_GET['id'] ?>">
+ 					<input type="hidden" name="partenaire" id="partenaire" value="<?= $_GET['id'] ?>">
  					</div>
  					<div class="form-actions">
 					<button type="submit" class="btn btn-success"><i class="fas fa-pencil-alt"></i> Ajouter</button>
