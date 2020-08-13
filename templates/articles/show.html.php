@@ -31,7 +31,7 @@
         </div>
 <?php
         
-        echo'<div class="col-md-6">';
+        echo'<div class="col-md-6 mt-2">';
             echo '<a href="save-comment.php?id=' .$article['id'] .'"><button type="button" class="btn btn-outline-dark button2">Nouveau commentaire</button></a>';
             echo'<a href="action.php?type=1&id=' .$article['id'] .'"><button type="button" class="btn btn-outline-dark button2">'.$likes." ".'<i class="fas fa-thumbs-up"></i></button></a>';
             echo'<a href="action.php?type=2&id=' .$article['id'] .'"><button type="button" class="btn btn-outline-dark button2">'.$dislikes." ".'<i class="fas fa-thumbs-down"></i></button></a>';
@@ -59,6 +59,19 @@
     }
 
     ?>
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" autohide: false.>
+  <div class="toast-header">
+    <img src="..." class="rounded mr-2" alt="...">
+    <strong class="mr-auto">Bootstrap</strong>
+    <small>11 mins ago</small>
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    Hello, world! This is a toast message.
+  </div>
+</div>
 
 </section>
 

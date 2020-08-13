@@ -23,6 +23,10 @@ h3{
   
 }
 
+.link_item{
+    padding-top: 15px;
+}
+
 /* HEADER */
 header{
     padding: 20px;
