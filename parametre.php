@@ -76,13 +76,15 @@
                
             }
             
-            $statement = $db->prepare('SELECT id, username FROM users WHERE id = ?');
+            $statement = $db->prepare('SELECT id,nom,prenom,username FROM users WHERE id = ?');
             $statement->execute(array($id));
             $newpassword = $statement->fetch();
 
             session_start();
             $_SESSION['id'] = $newpassword['id'];
             $_SESSION['username'] = $newpassword['username'];
+            $_SESSION['nom'] = $newpassword['nom'];
+            $_SESSION['prenom'] = $newpassword['prenom'];
             // header("Location: accueil.php");
             redirection("accueil.php");     
         }

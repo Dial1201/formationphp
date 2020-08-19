@@ -18,7 +18,11 @@
 	<div class="container-fluid">
 		<div class="container">
 			<h2 class="text-center" id="title">Le Groupement Banque Assurance Français</h2><img src="image/logo.png" alt="Groupement Banque Assurance Français" weight="60" height="60">
-			
+			<?php
+			require_once("Database.php");
+			require_once("functions.php");
+
+			?>
  			<hr>
 			<div class="row">
 				<div class="col-md-5">
@@ -40,7 +44,7 @@
                             <div class="form-group">
 								<!-- <input type="text" name="question" id="question" class="form-control input-lg" placeholder="Tapez votre question secrète" size="30" required> -->
 								<label for="question">Choississez votre question ?</label><br />
-									<select name="question" id="question">
+									<select class="form-control" name="question" id="question">
 										<option value="couleur">Quelle est votre couleur préférée ?</option>
 										<option value="ville">Quelle est votre ville favorite ?</option>
 										<option value="ecole">Quelle était le nom de votre école primaire ?</option>
@@ -70,9 +74,11 @@
  								
 							<div class="form-group">
 								<input type="text" name="usernameCo" id="usernameCo" class="form-control input-lg" placeholder="Pseudo">
+								
 							</div>
 							<div class="form-group">
 								<input type="password" name="passwordCo" id="passwordCo" class="form-control input-lg" placeholder="Mot de Passe">
+								
 							</div>
                             <div>
  								<input type="submit" name="login" class="btn btn-lg btn-primary"   value="Se Connecter">

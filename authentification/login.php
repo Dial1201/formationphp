@@ -2,7 +2,7 @@
 require_once('../Database.php');
 require_once("../functions.php");
 
-$errorPassOrId = "'Mauvais identifiant ou mot de passe !'";
+$errorPassOrId = "";
 $verify = false;
 
     if (isset($_POST['login'])) {
@@ -18,7 +18,7 @@ $verify = false;
     $db = Database::connect();
 
     //  Récupération du usernameCo et password hashé dans la base de donnees
-    $req = $db->prepare('SELECT id,username,password FROM users  WHERE username = :username ');
+    $req = $db->prepare('SELECT id,nom,prenom,username,password FROM users  WHERE username = :username ');
     $req->execute(array('username' => $usernameCo));
     $resultat = $req->fetch();
     
@@ -32,13 +32,16 @@ $verify = false;
         $verify = true;
         $_SESSION['id'] = $resultat['id'];
         $_SESSION['username'] = $resultat['username'];
+        $_SESSION['nom'] = $resultat['nom'];
+        $_SESSION['prenom'] = $resultat['prenom'];
         // header('location:../accueil.php');
         redirection("../accueil.php");
   
     }
 
-    else { // Sinon si le password ou username et faux ont indique à l'utilisateur
-        echo"$errorPassOrId" ; 
+    elseif(!$isPasswordCorrect) { // Sinon si le password ou username et faux ont indique à l'utilisateur
+        
+        $errorPassOrId = "Mauvais identifiant ou password !!! ";
         $verify = false;
     }
 ?>

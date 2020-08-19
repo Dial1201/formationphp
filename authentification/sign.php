@@ -19,10 +19,24 @@ $isSuccess = false;
 		$reponse = verifyinput($_POST["reponse"]);
 		$isSuccess = true;
 
+		// Vérifie si le username existe dans la BDD
+		$db = Database::connect();
+		$check = $db->prepare('SELECT username FROM users WHERE = username = ?');
+		$check->execute(array());
+		$check->fetch();
+		$verified = $check->rowCount();
+		$db = Database::disconnect();
+	
+		if ($verified == 1) {
+			echo"Le username existe dééjà";
+			exit();
+			
+		}
+		
 		if ($isSuccess) {
 
 			// On se connecte à la base de données
-			$db = Database::connect();
+			$db = Database::connect();	
 
 			// Hachage du mot de passe
 			$pass_hache = password_hash($password, PASSWORD_DEFAULT);
@@ -40,9 +54,6 @@ $isSuccess = false;
 			// header('location:../index.php');
 			redirection("../index.php");   	
 
-		?>
-
-		<?php
 			
 		}
 	

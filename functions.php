@@ -17,7 +17,7 @@ function redirection (string $url): void{
  * @return array
  */
 function findAllArticles():array {
-	$db = DataBase::connect();
+	$db = Database::connect();
 	$resultats = $db->query('SELECT * FROM partenaire ORDER BY join_date DESC');
 	$articles = $resultats->fetchAll();
 
@@ -28,7 +28,7 @@ function findAllArticles():array {
  * Retourne un article par rapport à son id
  */
 function findArticle(int $id) {
-	$db = DataBase::connect();
+	$db = Database::connect();
 	$query = $db-> prepare("SELECT * FROM partenaire WHERE id = :article_id");
     $query->execute(['article_id' => $id]);
     $article = $query->fetch();
@@ -40,8 +40,8 @@ function findArticle(int $id) {
  * Retourne la listes des commentaires d'un article
  */
 function findAllComments(int $article_id):array {
-	$db = DataBase::connect();
-	$query = $db->prepare("SELECT * FROM comments WHERE partenaire = :article_id");
+	$db = Database::connect();
+	$query = $db->prepare("SELECT * FROM comments WHERE partenaire = :article_id ORDER BY date_creation DESC");
     $query->execute(['article_id' => $article_id]);
 	$commentaires = $query->fetchAll();
 
@@ -52,7 +52,7 @@ function findAllComments(int $article_id):array {
  * Retourne le nombre de likes
  */
 function resultVotesLikes(int $article_id) {
-	$db = DataBase::connect();
+	$db = Database::connect();
 	$likes = $db->prepare('SELECT id FROM likes WHERE id_article = ?');
     $likes->execute(array($article_id));
 	$likes = $likes->rowCount();
@@ -64,7 +64,7 @@ function resultVotesLikes(int $article_id) {
  * Retourne le nombre de dislikes
  */
 function resultVotesDisLikes(int $article_id) {
-	$db = DataBase::connect();
+	$db = Database::connect();
 	$dislikes = $db->prepare('SELECT id FROM dislikes WHERE id_article = ?');
     $dislikes->execute(array($article_id));
 	$dislikes = $dislikes->rowCount();
@@ -76,7 +76,7 @@ function resultVotesDisLikes(int $article_id) {
  * Insertion d'un commentaire d'un article
  */
 function insertComment(string $username, string $commentaire, string $article_id):void  {
-	$db = DataBase::connect();
+	$db = Database::connect();
 	$query = $db->prepare('INSERT INTO comments SET id_user = :username, texte = :commentaire, date_creation = NOW(), partenaire = :article_id');
   	$query->execute(array(
     'username' => $username,
@@ -85,3 +85,22 @@ function insertComment(string $username, string $commentaire, string $article_id
   ));
 
 }
+
+function check_user_connect() {
+	if (!isset($_SESSION['username'])) {
+		header('Location: index.php');
+		exit();
+	}
+}
+
+function verify_username($username): int {
+	$db = Database::connect();
+	$check = $db->prepare('SELECT username FROM users WHERE = username = :username');
+	$check->execute(array(
+		'username' => $username
+	));
+	$verified = $check->rowCount();
+
+	return $verified;
+}
+
