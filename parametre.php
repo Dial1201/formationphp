@@ -59,7 +59,9 @@
                 'id'=>$id
             ));
            
+            // SI MDP coorespond à la BDD et nouveau est égal au second de comfirmation on insert avec le newpassword
             if($check_password == true && $newpassword == $comfirmNew_password){
+
                 // Hachage du nouveau mot de passe
                 $pass_hache = password_hash($newpassword, PASSWORD_DEFAULT);
                 
@@ -89,10 +91,9 @@
             redirection("accueil.php");     
         }
          
-            
+            $db = Database::disconnect();
             
         }
-        // SI MDP coorespond à la BDD et nouveau est égal au second de comfirmation on insert avec le newpassword
 
     /**
      *  On affiche

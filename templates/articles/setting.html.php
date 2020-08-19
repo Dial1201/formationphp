@@ -32,7 +32,7 @@
                             <div class="form-group">
 			
 								<label for="question">Modifier votre question ?</label><br />
-									<select name="question" id="question" required>
+									<select class="form-control" name="question" id="question" required>
                             
 										<option value="couleur">Quelle est votre couleur préférée ?</option>
 										<option value="ville">Quelle est votre ville favorite ?</option>

@@ -18,25 +18,26 @@ $isSuccess = false;
 		$question = verifyinput($_POST["question"]);
 		$reponse = verifyinput($_POST["reponse"]);
 		$isSuccess = true;
-
-		// Vérifie si le username existe dans la BDD
-		$db = Database::connect();
-		$check = $db->prepare('SELECT username FROM users WHERE = username = ?');
-		$check->execute(array());
-		$check->fetch();
-		$verified = $check->rowCount();
-		$db = Database::disconnect();
-	
-		if ($verified == 1) {
-			echo"Le username existe dééjà";
-			exit();
-			
-		}
 		
 		if ($isSuccess) {
 
 			// On se connecte à la base de données
-			$db = Database::connect();	
+			$db = Database::connect();
+			
+			// Trouve le username correspondant au username
+			$query = $db->prepare('SELECT * FROM users WHERE username = :username');
+			$query->execute(['username' => $username]);
+			$user = $query->fetch();
+			
+			if ($user === true) {
+				
+				echo'<div class="alert alert-danger">';
+				echo"Le username existe déjà";
+				echo"<br>"; 
+				echo'<a href="../index.php"><strong>Changer votre username</strong></a>';
+				echo"</div>"; 
+
+			}
 
 			// Hachage du mot de passe
 			$pass_hache = password_hash($password, PASSWORD_DEFAULT);
@@ -51,13 +52,9 @@ $isSuccess = false;
 			echo'<div class="alert alert-success">'; 
            	echo"<strong> $messageHome</strong> ";
 			echo"</div>";
-			// header('location:../index.php');
-			redirection("../index.php");   	
-
 			
+			redirection("../index.php");   	
 		}
-	
-	
 	}
 
 

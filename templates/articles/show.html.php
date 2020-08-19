@@ -39,24 +39,25 @@
     echo'</div>';
 
     foreach ($commentaires as $commentaire) {
-        echo '<div class="row detail">';
-            echo'<div class="col">';
-                echo '<div class="col author">'. $commentaire['id_user'] . '</div>';
-            echo '</div>';
-        echo'</div>';
 
-        echo '<div class="row detail">';
-            echo'<div class="col">';
-                echo'<div class="col date">'. $commentaire['date_creation'] . '</div>';
-            echo '</div>';
-        echo'</div>';
+        ?>
+        
+        <br>
+        <div class="card" style="width: 18rem;">
+            <div class="row">
+                <div class="card-body">
+                    <h5 class="card-title"><?= $commentaire['id_user'] ?></h5>
+                    <h6 class="card-subtitle mb-2 text-muted"><?= $commentaire['date_creation'] ?></h6>
+                    <p class="card-text"><?= $commentaire['texte'] ?></p>
+                </div>
+            </div>
+        </div>
 
-        echo '<div class="row detail">';
-            echo'<div class="col">';
-                echo'<div class="col date">'. $commentaire['texte'] . '</div>';
-            echo '</div>';
-        echo'</div>';
+        <br>
+
+        <?php
     }
+
 
     ?>
  
