@@ -17,20 +17,21 @@ echo'<section class="acteurs">';
         echo'<div class="row"> ';
         foreach ($articles as $article) {
             echo'<div class="col-md-4 logo_acteurs">';
-            echo'<img src="image/'. $article['logo'] .'" class="img-thumbnail" alt="logo formation_co">';
+                echo'<img src="image/'. $article['logo'] .'" class="img-thumbnail" alt="logo formation_co">';
             echo'</div>';
-            echo'<div class="col-md-8 textuel">';
-            echo'<h3>'. $article['titre'] .'</h3>';
-            echo'<p>'.$article['extrait'] .' </p>';
-            echo'<a href="article.php?id=' . $article['id'] . '" class="button1 btn btn-outline-danger">lire la suite</a>';
+            echo'<div class="col-md-8 pb-5 textuel">';
+                echo'<h3>'. $article['titre'] .'</h3>';
+                echo'<p>'.$article['extrait'] .' </p>';
+                echo'<a href="article.php?id=' . $article['id'] . '" class="button1 btn btn-outline-danger">lire la suite</a>';
             echo' </div>';
-
+            
         }
-            echo'</div>';
-            echo' </div>';
-            echo'</section>';
+        echo'<br>';
+            
+        echo' </div>';
+echo'</section>';
 ?>
-
+<br>
 
 <!-- FOOTER -->
 

@@ -4,7 +4,6 @@
 require_once("../Database.php");
 require_once("../functions.php");
 
-$messageHome = "Vous allez être rediriger vers la page d'accueil dans un instant ...";
 $isSuccess = false;
 	// Vérification de la validité des informations
 
@@ -25,19 +24,19 @@ $isSuccess = false;
 			$db = Database::connect();
 			
 			// Trouve le username correspondant au username
-			$query = $db->prepare('SELECT * FROM users WHERE username = :username');
-			$query->execute(['username' => $username]);
-			$user = $query->fetch();
+			// $query = $db->prepare('SELECT * FROM users WHERE username = :username');
+			// $query->execute(['username' => $username]);
+			// $user = $query->fetch();
 			
-			if ($user === true) {
+			// if ($user === true) {
 				
-				echo'<div class="alert alert-danger">';
-				echo"Le username existe déjà";
-				echo"<br>"; 
-				echo'<a href="../index.php"><strong>Changer votre username</strong></a>';
-				echo"</div>"; 
+			// 	echo'<div class="alert alert-danger">';
+			// 	echo"Le username existe déjà";
+			// 	echo"<br>"; 
+			// 	echo'<a href="../index.php"><strong>Changer votre username</strong></a>';
+			// 	echo"</div>"; 
 
-			}
+			// }
 
 			// Hachage du mot de passe
 			$pass_hache = password_hash($password, PASSWORD_DEFAULT);
@@ -48,10 +47,6 @@ $isSuccess = false;
 
 			$req->execute(array($nom,$prenom,$username,$pass_hache,$question,$reponse));
 			$db = Database::disconnect();
-
-			echo'<div class="alert alert-success">'; 
-           	echo"<strong> $messageHome</strong> ";
-			echo"</div>";
 			
 			redirection("../index.php");   	
 		}

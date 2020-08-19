@@ -22,19 +22,19 @@ require_once("functions.php");
   }
 
   /**
-   *  On récupère un partenaire
+   * 1 On récupère un partenaire
    */
  
   $article = findArticle($article_id);
 
    /**
-    * On récupère tous les commentaires de un partenaire
+    * 2 On récupère tous les commentaires de un partenaire
     */
     
   $commentaires = findAllComments($article_id);
 
     /**
-     *  on calcul le nombre de likes et dislikes
+     * 3 on calcul le nombre de likes et dislikes
      */
 
     $likes = resultVotesLikes($article_id);
@@ -42,7 +42,7 @@ require_once("functions.php");
     $dislikes = resultVotesDisLikes($article_id);
 
     /**
-     *  On affiche
+     * 4 On affiche
      */
     $pageTitle = "Article";
     ob_start();
