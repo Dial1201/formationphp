@@ -10,10 +10,10 @@
             <div class="col-md-6">
  				<form role="form" action="" method="POST" >
 					<div class="form-group">
-						<input type="text" name="nom" id="nom" class="form-control input-lg" value="<?php echo"$_SESSION[username]";?>" readonly required>
+						<input type="text" name="nom" id="nom" class="form-control input-lg" value="<?= $_SESSION['nom'].' '. $_SESSION['prenom'];?>" readonly >
                 	</div>
  					<div class="form-group">
- 					<input type="text" name="commentaire" id="commentaire" class="form-control input-lg" placeholder="Vous voulez réagir ? N'hésitez pas !"  >
+ 					<input type="text" name="commentaire" id="commentaire" class="form-control input-lg" placeholder="Vous voulez réagir ? N'hésitez pas !" required>
  					</div>
 					 <div class="form-group">
  					<input type="hidden" name="partenaire" id="partenaire" value="<?= $_GET['id'] ?>">

@@ -8,7 +8,7 @@ require_once("functions.php");
  */
 
   $article_id = null;
-  $username = null;
+  $sessionid = $_SESSION['id'];
   $commentaire = null;
 
   // On vérifie Si l'article existe avec la variable $_GET['id'] exsite avec isset

@@ -3,7 +3,8 @@ function verifyinput ($var) { // fonction pour la securite
 		
         $var = trim($var); // trim — Supprime les espaces (ou d'autres caractères) en début et fin de chaîne
         $var = stripcslashes($var); // supprime tous les antislashs
-        $var = htmlspecialchars($var); // Convertit les caractères spéciaux en entités HTML
+		$var = htmlspecialchars($var); // Convertit les caractères spéciaux en entités HTML
+		$str = preg_replace('/s/', '', $var);
         return $var;
     }
 
@@ -77,7 +78,9 @@ function resultVotesDisLikes(int $article_id) {
  */
 function insertComment(string $username, string $commentaire, string $article_id):void  {
 	$db = Database::connect();
-	$query = $db->prepare('INSERT INTO comments SET id_user = :username, texte = :commentaire, date_creation = NOW(), partenaire = :article_id');
+	$query = $db->prepare('INSERT INTO comments(id_user, texte, date_creation,partenaire)
+							VALUE(:username, :commentaire,NOW(),:article_id)');
+	
   	$query->execute(array(
     'username' => $username,
     'commentaire' => $commentaire,
