@@ -1,6 +1,6 @@
 <!-- HEADER -->
 
-<?php include_once"libraries/header.php"; ?>
+
 
 
 <!-- PRESENTATION -->

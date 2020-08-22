@@ -20,6 +20,3 @@ require('templates/articles/accueil.html.php');
 $pageContent = ob_get_clean();
 
 require('templates/layout.html.php');
-
-
-

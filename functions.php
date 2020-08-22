@@ -91,6 +91,7 @@ function insertComment(string $username, string $commentaire, string $article_id
 
 function check_user_connect() {
 	if (!isset($_SESSION['username'])) {
+		session_destroy(); //destroy the session
 		header('Location: index.php');
 		exit();
 	}
@@ -105,5 +106,10 @@ function verify_username($username): int {
 	$verified = $check->rowCount();
 
 	return $verified;
+}
+
+function check_username(string $username, array $username_db): bool{
+	return $check = $username === $username_db;
+	
 }
 

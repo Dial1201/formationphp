@@ -46,8 +46,10 @@
 							</div>
 							
  							<div>
- 								<input type="submit" class="btn btn-lg btn-primary"   value="Valider">
- 							</div>
+ 								<input type="submit" class="btn btn-lg btn-primary" value="Valider">
+							 </div>
+							 <p class="text-success" style="display:<?php if ($_SERVER["REQUEST_METHOD"] == "POST" && $isSuccess == true) echo 'block';
+																	else echo 'none'; ?>;">Votre compte à bien été modifié</p>
 						</fieldset>
 					</form>
 				</div>
