@@ -86,26 +86,46 @@ function insertComment(string $username, string $commentaire, string $article_id
     'commentaire' => $commentaire,
     'article_id' => $article_id
   ));
+  $db = DataBase::disconnect();
 
 }
 
-function check_user_connect() {
-	if (!isset($_SESSION['username'])) {
-		session_destroy(); //destroy the session
-		header('Location: index.php');
-		exit();
-	}
+function findUser(int $id) {
+	$db = DataBase::connect();
+    $req = $db->prepare('SELECT * FROM users WHERE id =?');
+    $req->execute(array($id));
+	$resultat = $req->fetch();
+	$db = DataBase::disconnect();
+	return $resultat;
 }
 
-function verify_username($username): int {
-	$db = Database::connect();
-	$check = $db->prepare('SELECT username FROM users WHERE = username = :username');
-	$check->execute(array(
-		'username' => $username
+function updateUser(string $nom, string $prenom, string $username, $question, string $reponse,int $id): void {
+	$db = DataBase::connect();
+	$statement = $db->prepare("UPDATE users SET nom = :nom, prenom = :prenom, username = :username, question = :question, reponse = :reponse WHERE id = :id");
+            $statement->execute(array(
+                'nom' => $nom,
+                'prenom' => $prenom,
+                'username' => $username,
+                'question' => $question,
+                'reponse' => $reponse,
+                'id' => $id
+			));
+			$db = DataBase::disconnect();
+}
+
+function updateUserPassword(string $nom, string $prenom, string $username, $pass_hache, $question, string $reponse,int $id): void {
+	$db = DataBase::connect();
+	$statement = $db->prepare("UPDATE users SET nom = :nom, prenom = :prenom, username = :username, password = :password, question = :question, reponse = :reponse WHERE id = :id");
+	$statement->execute(array(
+		'nom' => $nom,
+		'prenom' => $prenom,
+		'username' => $username,
+		'password' => $pass_hache,
+		'question' => $question,
+		'reponse' => $reponse,
+		'id' => $id
 	));
-	$verified = $check->rowCount();
-
-	return $verified;
+	$db = DataBase::disconnect();
 }
 
 function check_username(string $username, array $username_db): bool{
