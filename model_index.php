@@ -1,4 +1,5 @@
 <?php
+require_once("DataBase.php");
 
 $nom = $prenom = $username = $password = $passwordValid = $question = $reponse = "";
 $nom_error = $prenom_error = $username_error = $password_error = $question_error = $reponse_error = "";
@@ -52,11 +53,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	 * Si le username existe déjà on informe l'utilisateur
 	 * Sinon on valid le username
 	 *  */
-	$db = Database::connect();
+	$db = DataBase::connect();
 	$query = $db->prepare('SELECT * FROM users WHERE username = :username');
 	$query->execute(['username' => $username]);
 	$resultat = $query->rowCount();
-	$db = Database::disconnect();
+	$db = DataBase::disconnect();
 
 	if ($resultat == 0) {
 		if ($password == $passwordValid) {
@@ -74,14 +75,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	if ($isSuccess) {
 
-		$db = Database::connect();
+		$db = DataBase::connect();
 		// Insertion des informations dans la base de donnees 
 		$req = $db->prepare('INSERT INTO users(nom, prenom, username, password, question, reponse) 
 				VALUES(?,?,?,?,?,?)');
 
 		$req->execute(array($nom, $prenom, $username, $pass_hache, $question, $reponse));
 
-		$db = Database::disconnect();
+		$db = DataBase::disconnect();
 
 		
 	}

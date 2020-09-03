@@ -1,21 +1,19 @@
 <?php
-
+require_once('models/User.php');
+require_once('functions.php');
 // On vérifie que la variable $_GET['id'] et $_GET['username'] exsite avec isset
 // SI elle n'est pas vide avec !empty et que c'est un nombre entier avec ctype_digit
 // Si tout est ok ont met on converti avec int la variable et on stock dans $id 
 
 session_start();
 
+$usermodel = new User();
+
 if (isset($_SESSION['id']) && !empty($_SESSION['id'])) {
     $id = $_SESSION['id'];
 
-    // $db = DataBase::connect();
-    // $req = $db->prepare('SELECT * FROM users WHERE id =?');
-    // $req->execute(array($id));
-    // $resultat = $req->fetch();
-    findUser($id);
+    $usermodel->findUser($id);
     
-
     $nom_error = $prenom_error = $username_error = $password_error = $question_error = $reponse_error = "";
     $usernameNoValid = "";
     $isSuccess = false;
@@ -61,7 +59,7 @@ if (isset($_SESSION['id']) && !empty($_SESSION['id'])) {
 
         
         //  Récupération des informations dans la base de donnees
-       findUser($id);
+       $usermodel->findUser($id);
 
         $db_password = $resultat["password"];
         // Vérifie que le mot de passe correspond au password de la BDD
@@ -70,7 +68,7 @@ if (isset($_SESSION['id']) && !empty($_SESSION['id'])) {
         // SI mot de passe actuelle coorespond à celui de la BDD on insert les données les nouvelles données
         if ($check_password == true) {
 
-            updateUser($nom,$prenom,$username,$question,$reponse,$id);
+            $usermodel->updateUser($nom,$prenom,$username,$question,$reponse,$id);
         }
 
         // SI MDP coorespond à la BDD et nouveau est égal au second de comfirmation on insert avec le newpassword
@@ -79,9 +77,9 @@ if (isset($_SESSION['id']) && !empty($_SESSION['id'])) {
             // Hachage du nouveau mot de passe
             $pass_hache = password_hash($newpassword, PASSWORD_DEFAULT);
 
-            updateUserPassword($nom,$prenom,$username,$pass_hache,$question,$reponse,$id);
+            $usermodel->updateUserPassword($nom,$prenom,$username,$pass_hache,$question,$reponse,$id);
         }
-        findUser($id);
+        $usermodel->findUser($id);
 
         $_SESSION['username'] = $resultat['username'];
         $_SESSION['nom'] = $resultat['nom'];

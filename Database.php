@@ -3,7 +3,7 @@
 class DataBase {
 
 	private static $dbHost = "localhost";
-	private static $dbName = "Banque";
+	private static $dbName = "Bank";
 	private static $dbUser = "root";
 	private static $dbUserPassword = "";
 	

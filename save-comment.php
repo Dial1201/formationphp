@@ -1,7 +1,13 @@
 <?php
 require_once('Database.php');
 require_once("functions.php");
+require_once("models/Comment.php");
+require_once("models/Article.php");
+
 session_start();
+
+$articleModel = new Article();
+$commentModel = new Comment();
 /**
  * CE FICHIER DOIT ENREGISTRER UN NOUVEAU COMMENTAIRE EST REDIRIGER SUR L'ARTICLE !
  * 
@@ -36,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
    * 2. Vérification que l'id de l'article pointe bien vers un article qui existe
    */
 
-  $article = findArticle($article_id);
+  $article = $articleModel->find($article_id);
 
   // Si rien n'est revenu, on fait une erreur
   if (!$article) {
@@ -45,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   // 3. Insertion du commentaire
 
-  insertComment($username, $commentaire, $article_id);
+  $commentModel->insert($username, $commentaire, $article_id);
 
   // 4. Redirection
 

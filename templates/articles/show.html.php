@@ -46,7 +46,7 @@
                  <div class="row">
                      <div class="card-body">
                          <h5 class="card-title"><?= $commentaire['id_user']; ?></h5>
-                         <h6 class="card-subtitle mb-2 text-muted"><?= $commentaire['date_creation'] ?></h6>
+                         <h6 class="card-subtitle mb-2 text-muted"><?= $commentaire['join_date'] ?></h6>
                          <p class="card-text"><?= $commentaire['texte'] ?></p>
                      </div>
                  </div>

@@ -5,7 +5,7 @@
         session_start();
     }
 
-    check_user_connect();
+    // check_user_connect();
     ?>
 
 

@@ -1,6 +1,11 @@
 <?php
 require_once('Database.php');
 require_once("functions.php");
+require_once('models/Article.php');
+require_once('models/Comment.php');
+
+$articlemodel = new Article();
+$commentmodel = new Comment();
 /**
  * CE FICHIER DOIT AFFICHER UN PARTENAIRE ET SES COMMENTAIRES
  * 
@@ -25,13 +30,14 @@ if (!$article_id) {
  * 1 On récupère un partenaire
  */
 
-$article = findArticle($article_id);
+$article = $articlemodel->find($article_id);
 
 /**
  * 2 On récupère tous les commentaires de un partenaire
  */
 
-$commentaires = findAllComments($article_id);
+$commentaires = $commentmodel->findAllByArticle($article_id);
+
 
 /**
  * 3 on calcul le nombre de likes et dislikes

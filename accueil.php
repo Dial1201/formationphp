@@ -6,11 +6,13 @@
  */
 require_once('Database.php');
 require_once("functions.php");
+require_once('models/Article.php');
 
+$model = new Article();
 /**
  * 1. Récupération des articles 
  */
-$articles = findAllArticles();
+$articles = $model->findAll("join_date DESC");
 /**
  * 2. Affichage
  */
